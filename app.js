@@ -4,14 +4,15 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const { redisClient, RedisStore, session } = require("./database/redis");
-
+var { secret } = require("./config");
 var app = express();
 
 // Set up Redis as the session store:
 app.use(
   session({
     store: new RedisStore({ client: redisClient }),
-    secret: "asfga",
+    // secret: "asfga",
+    secret: secret,
     resave: false,
     saveUninitialized: false,
     cookie: {

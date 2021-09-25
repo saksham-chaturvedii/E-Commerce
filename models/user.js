@@ -24,7 +24,10 @@ const sequelize = require("../database/index");
  * Both can be different. Usually Table name is
  * in plural (Users) and model name in singular.
  */
-const User = sequelize.define("User",
+
+//Changed table name from user 1 to user 2 when added the role column. using postgres, cannot just add column like that. Different in MongoDB- (no sql)
+const User = sequelize.define(
+  "User2",
   {
     fullName: {
       type: DataTypes.STRING,
@@ -39,6 +42,11 @@ const User = sequelize.define("User",
     password: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+
+    role: {
+      type: DataTypes.STRING,
+      defaultValue: "user",
     },
   },
   {

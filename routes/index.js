@@ -1,8 +1,8 @@
 var express = require("express");
-const session = require("express-session");
 var router = express.Router();
-var registerToDB = require("../controllers/register");
+var { registerUser, registerSuperAdmin } = require("../controllers/register");
 const checksBeforeRegister = require("../middlewares/registerChecks.js");
+const check = require("../middlewares/superAdminCheck");
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
@@ -12,7 +12,11 @@ router.get("/", function (req, res, next) {
   res.render("index", { title: "Express" });
 });
 
-router.post("/register", checksBeforeRegister, registerToDB);
+router.post("/register", checksBeforeRegister, registerUser);
+router.post("/register-super-admin", checksBeforeRegister, registerSuperAdmin);
+router.get("/super", check);
+
+
 module.exports = router;
 
 /**
