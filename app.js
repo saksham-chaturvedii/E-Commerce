@@ -11,7 +11,7 @@ var app = express();
 app.use(
   session({
     store: new RedisStore({ client: redisClient }),
-    // secret: "asfga",
+    // secret: "asfgaa",
     secret: secret,
     resave: false,
     saveUninitialized: false,
@@ -25,6 +25,7 @@ app.use(
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
+const passport = require("passport");
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -36,6 +37,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use(passport.initialize());
+require("./middlewares/passport")(passport);
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 

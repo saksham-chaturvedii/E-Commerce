@@ -27,7 +27,7 @@ const sequelize = require("../database/index");
 
 //Changed table name from user 1 to user 2 when added the role column. using postgres, cannot just add column like that. Different in MongoDB- (no sql)
 const User = sequelize.define(
-  "User2",
+  "User",
   {
     fullName: {
       type: DataTypes.STRING,
