@@ -5,7 +5,6 @@ const pool = require("../database/onlyPostgres");
 /* GET users listing. */
 router.get("/", function (req, res, next) {
   pool.query('Select * from "User"', (err, result) => {
-    console.log(8)
     if (err) {
       throw err;
     } else {
