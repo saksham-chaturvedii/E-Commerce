@@ -4,7 +4,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const { redisClient, RedisStore, session } = require("./database/redis");
-var { secret } = require("./config");
+var { SECRET } = require("./config");
 var app = express();
 
 // Set up Redis as the session store:
@@ -12,7 +12,7 @@ app.use(
   session({
     store: new RedisStore({ client: redisClient }),
     // secret: "asfgaa",
-    secret: secret,
+    secret: SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -42,7 +42,7 @@ require("./middlewares/passport")(passport);
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/passport", require("./routes/passport"));
-
+app.use('products', require('./routes/products'))
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
