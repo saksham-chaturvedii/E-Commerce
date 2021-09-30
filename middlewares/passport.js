@@ -10,10 +10,12 @@ const opts = {
 module.exports = (passport) => {
   passport.use(
     new Strategy(opts, async (payload, done) => {
-      await User.findByPk(payload.user_id)
+      // console.log("Payload-> ",payload);
+      await User.findOne({where: {email: payload.email}})
         .then((user) => {
+          // console.log("User->", user.dataValues);
           if (user) {
-            return done(null, user);
+            return done(null, user.dataValues);
           }
           return done(null, false);
         })

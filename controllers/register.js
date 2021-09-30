@@ -41,7 +41,6 @@ const registerUser = async (req, res) => {
 };
 
 const registerSuperAdmin = async (req, res) => {
-  console.log(req.session.User);
   const { fullName, email, password } = req.body;
   try {
     const emailExist = await User.findOne({ where: { email } });

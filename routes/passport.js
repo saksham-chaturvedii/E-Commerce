@@ -44,31 +44,21 @@ router.get("/profile", userAuth, async (req, res) => {
 });
 
 // Users Protected Route
-router.get(
-  "/user-protected",
-  userAuth,
-  checkRole(["user"]),
-  async (req, res) => {
-    return res.json("Hello User");
-  }
-);
+router.get("/user-protected", userAuth, checkRole(["user"]), (req, res) => {
+  return res.json("Hello User");
+});
 
 // Admin Protected Route
-router.get(
-  "/admin-protected",
-  userAuth,
-  checkRole(["admin"]),
-  async (req, res) => {
-    return res.json("Hello Admin");
-  }
-);
+router.get("/admin-protected", userAuth, checkRole(["admin"]), (req, res) => {
+  return res.json("Hello Admin");
+});
 
 // Super Admin Protected Route
 router.get(
   "/super-admin-protected",
   userAuth,
   checkRole(["superadmin"]),
-  async (req, res) => {
+  (req, res) => {
     return res.json("Hello Super Admin");
   }
 );
@@ -78,7 +68,7 @@ router.get(
   "/super-admin-and-admin-protected",
   userAuth,
   checkRole(["superadmin", "admin"]),
-  async (req, res) => {
+  (req, res) => {
     return res.json("Super Admin and Admin");
   }
 );

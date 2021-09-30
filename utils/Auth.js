@@ -2,7 +2,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const User = require("../models/user");
-const { secret } = require("../config/index");
+const { SECRET } = require("../config/index");
 
 /**
  * To register the user (ADMIN, SUPER_ADMIN, USER)
@@ -35,8 +35,6 @@ const userRegister = async (userDets, role, res) => {
       password,
       role,
     });
-
-    await newUser.save();
     return res.status(201).json({
       message: "You have been registered successfully. Please login.",
       success: true,
@@ -44,7 +42,6 @@ const userRegister = async (userDets, role, res) => {
     });
   } catch (err) {
     // Implement logger function (winston)
-    console.log(userDets);
     return res.status(500).json({
       message: "Unable to create your account.",
       success: false,
@@ -59,7 +56,7 @@ const userRegister = async (userDets, role, res) => {
 const userLogin = async (userCreds, role, res) => {
   let { username, password } = userCreds;
   // First Check if the username is in the database
-  const user = await User.findOne({ username });
+  const user = await User.findOne({where:{ username }});
   if (!user) {
     return res.status(404).json({
       message: "Username is not found. Invalid login credentials.",
@@ -85,7 +82,7 @@ const userLogin = async (userCreds, role, res) => {
         username: user.username,
         email: user.email,
       },
-      secret,
+      SECRET,
       { expiresIn: "7 days" }
     );
 
@@ -111,7 +108,8 @@ const userLogin = async (userCreds, role, res) => {
 };
 
 const validateUsername = async (username) => {
-  let user = await User.findOne({ username });
+  console.log("username->",username);
+  let user = await User.findOne({where:{ username }});
   return user ? false : true;
 };
 
@@ -123,13 +121,19 @@ const userAuth = passport.authenticate("jwt", { session: false });
 /**
  * @DESC Check Role Middleware
  */
-const checkRole = (roles) => (req, res, next) =>
-  !roles.includes(req.user.role)
-    ? res.status(401).json("Unauthorized")
+const checkRole = (roles) => (req, res, next) => {
+  console.log("req.user-> ", req.user);
+  return !roles.includes(req.user.role)
+    ? res.status(400).json("Unauthorized")
     : next();
+};
+// function definition is being returned here, es5 vs es6
+// function chekcRole(roles){
+//   return function(req,res,next){};
+// }
 
 const validateEmail = async (email) => {
-  let user = await User.findOne({ email });
+  let user = await User.findOne({where:{ email }});
   return user ? false : true;
 };
 
