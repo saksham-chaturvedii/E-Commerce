@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../database/index");
-const User = sequelize.define(
-  "User",
+const user = sequelize.define(
+  "user",
   {
     name: {
       type: DataTypes.STRING,
@@ -14,7 +14,8 @@ const User = sequelize.define(
     role: {
       type: DataTypes.STRING,
       defaultValue: "user",
-      enum: DataTypes.ENUM(["user", "admin", "superadmin"]), //
+      values: ["user", "admin", "superAdmin"],
+      // enum: DataTypes.ENUM(["user", "admin", "superadmin"]), //
     },
     username: {
       type: DataTypes.STRING,
@@ -30,4 +31,4 @@ const User = sequelize.define(
   }
 );
 
-module.exports = User;
+module.exports = user;
