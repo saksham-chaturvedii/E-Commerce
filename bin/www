@@ -122,9 +122,14 @@ function normalizePort(val) {
 
   return false;
 }
-
+// console.log("path1-> ", path.resolve("./localhost-key.pem"));
+// console.log("path2-> ", "./localhost-key.pem");
+console.log(path.resolve());
 const options = {
-  key: fs.readFileSync(path.resolve("./localhost-key.pem")),
+  // key: fs.readFileSync(path.resolve("./localhost-key.pem")), -> works
+  // key: fs.readFileSync(path.path(__dirname, "./localhost-key.pem")), -> works
+  // RFS preappends the root directory path
+  // key: fs.readFileSync("\localhost-key.pem"),
   // Replace with the path to your key
   cert: fs.readFileSync(path.resolve("./localhost.pem")),
   // Replace with the path to your certificate
