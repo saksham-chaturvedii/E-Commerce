@@ -3,6 +3,7 @@ const express = require("express");
 const router = require("express").Router();
 const productModel = require("../models/products");
 const { Op } = require("sequelize");
+// require("../utils/init");
 
 router.get("/", async (req, res) => {
   try {
@@ -17,7 +18,7 @@ router.get("/", async (req, res) => {
       sql = { offset: count * (page - 1) };
     }
 
-    console.log("...sql-> ", sql);
+    // console.log("...sql-> ", sql);
     const products = await productModel.findAll({
       ...sql,
       attributes: ["id", "title", "price", "description", "image"],
@@ -29,5 +30,6 @@ router.get("/", async (req, res) => {
     res.status(500).send({ error: err, message: `Invalid Request.` });
   }
 });
+
 
 module.exports = router;
