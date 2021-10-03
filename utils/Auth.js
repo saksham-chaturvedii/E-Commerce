@@ -56,7 +56,7 @@ const userRegister = async (userDets, role, res) => {
 const userLogin = async (userCreds, role, res) => {
   let { username, password } = userCreds;
   // First Check if the username is in the database
-  const user = await User.findOne({where:{ username }});
+  const user = await User.findOne({ where: { username } });
   if (!user) {
     return res.status(404).json({
       message: "Username is not found. Invalid login credentials.",
@@ -108,8 +108,8 @@ const userLogin = async (userCreds, role, res) => {
 };
 
 const validateUsername = async (username) => {
-  console.log("username->",username);
-  let user = await User.findOne({where:{ username }});
+  console.log("username->", username);
+  let user = await User.findOne({ where: { username } });
   return user ? false : true;
 };
 
@@ -133,7 +133,7 @@ const checkRole = (roles) => (req, res, next) => {
 // }
 
 const validateEmail = async (email) => {
-  let user = await User.findOne({where:{ email }});
+  let user = await User.findOne({ where: { email } });
   return user ? false : true;
 };
 

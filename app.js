@@ -45,6 +45,7 @@ app.use("/users", usersRouter);
 app.use("/passport", require("./routes/passport"));
 app.use("/products", require("./routes/products"));
 app.use("/streams", require("./routes/stream"));
+app.use("/stripe", require("./routes/payment"));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

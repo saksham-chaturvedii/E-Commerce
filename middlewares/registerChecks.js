@@ -19,7 +19,7 @@ const checksBeforeRegister = (req, res, next) => {
     password === confirmPassword
   ) {
     // res.status(200).send("Data Validity Confirmed");
-    next()
+    next();
   } else {
     res.status(401).send("Initial Checks Failed.");
   }

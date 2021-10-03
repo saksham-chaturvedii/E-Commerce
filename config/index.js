@@ -6,6 +6,5 @@ module.exports = {
   sequelize_password: process.env.SEQUELIZE_PASSWORD,
   sequelize_host: process.env.SEQUELIZE_HOST,
   sequelize__dialect: process.env.SEQUELIZE_DIALECT,
-  SECRET: process.env.secret
+  SECRET: process.env.secret,
 };
-

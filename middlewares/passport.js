@@ -11,7 +11,7 @@ module.exports = (passport) => {
   passport.use(
     new Strategy(opts, async (payload, done) => {
       // console.log("Payload-> ",payload);
-      await User.findOne({where: {email: payload.email}})
+      await User.findOne({ where: { email: payload.email } })
         .then((user) => {
           // console.log("User->", user.dataValues);
           if (user) {

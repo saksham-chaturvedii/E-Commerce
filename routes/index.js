@@ -16,7 +16,6 @@ router.post("/register", checksBeforeRegister, registerUser);
 router.post("/register-super-admin", checksBeforeRegister, registerSuperAdmin);
 router.get("/super", check);
 
-
 module.exports = router;
 
 /**
