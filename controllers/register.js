@@ -4,7 +4,7 @@
  * If not, then hash the input password and store the user's data into the DB.
  */
 
-const User = require("../models/user");
+const User = require("../models/user1");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
@@ -64,7 +64,10 @@ const registerSuperAdmin = async (req, res) => {
       role: "super-admin",
     });
     const savedUser = await newUser.save();
-    req.session.User = savedUser; //save to Redis Store
+    console.log("req.session1-> ", req.session);
+    req.session.abcd = savedUser; //save to Redis Store
+    console.log("req.session2-> ", req.session);
+
     res.status(200).send(savedUser);
   } catch (err) {
     res.status(500).send("Something went wrong2.");

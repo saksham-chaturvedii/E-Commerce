@@ -7,7 +7,6 @@ const check = require("../middlewares/superAdminCheck");
 /* GET home page. */
 router.get("/", function (req, res, next) {
   const sess = req.session; // We got the whole of our Redis database here and can now conviniently add keys.
-  console.log(req.session);
   sess.halua = "gajar";
   res.render("index", { title: "Express" });
 });
